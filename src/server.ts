@@ -1,4 +1,4 @@
-import { App } from "./app";
-import { PORT } from "./contants/server";
+import { App } from './app';
+import { PORT } from './contants/server';
 
-new App().server.listen(PORT, () => console.log(`LISTENING ON PORT ${PORT}`))
+new App().server.listen(PORT, () => console.log(`LISTENING ON PORT ${PORT}`));
