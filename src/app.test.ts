@@ -5,7 +5,9 @@ import App from './app';
 jest.mock('express', () => () => expressMock);
 
 describe('App test', () => {
-  test('test sum', () => {
-    const myApp = new App();
+  test('should test config express application', () => {
+    new App();
+
+    expect(expressMock.use).toBeCalledTimes(3);
   });
 });
