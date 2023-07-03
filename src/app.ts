@@ -2,7 +2,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import express, { Application } from 'express';
 
-export class App {
+export default class App {
   public server: Application;
 
   constructor() {
