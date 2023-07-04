@@ -2,6 +2,6 @@
     "watch": [
         "src"
     ],
-    "extends": "ts",
+    "ext": "ts",
     "exec": "ts-node ./src/server.ts"
 }
