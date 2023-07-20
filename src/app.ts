@@ -16,14 +16,14 @@ export class App {
     this.setControllers();
   }
 
-  private setControllers() {
-    const userController = new UserController();
-    this._server.use('/api/users', userController.router);
-  }
-
   private setConfig() {
     this._server.use(bodyParser.json({ limit: '50mb' }));
     this._server.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
     this._server.use(cors());
+  }
+
+  private setControllers() {
+    const userController = new UserController();
+    this._server.use('/api/users', userController.router);
   }
 }
