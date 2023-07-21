@@ -1,5 +1,5 @@
 import { UserEmailAlreadyExistsException } from '../exceptions/invalid-user-email-already-exists-exception';
-import { User } from '../interfaces/user';
+import { UserDocument } from '../interfaces/user';
 import { UserService } from './user-service';
 
 class NoErrorException extends Error {}
@@ -15,12 +15,11 @@ const errorWrapper = (callback: () => void): Error => {
 
 const USER_ID_MOCK = Math.random();
 
-const USER_MOCK: User = {
+const USER_MOCK = {
   name: 'user',
   email: 'return_mock@node.com',
-  password: '123',
-  confirm_password: '123'
-};
+  password: '123'
+} as UserDocument;
 
 const CREATE_USER_MOCK = jest.fn(() => USER_ID_MOCK);
 
@@ -47,10 +46,10 @@ describe('UserService tests', () => {
   });
 
   test('should return user ID when user is created successfully', () => {
-    const user: User = {
+    const user = {
       ...USER_MOCK,
       email: 'user@test.com'
-    };
+    } as UserDocument;
     const userService = new UserService();
 
     //act

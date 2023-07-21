@@ -1,5 +1,6 @@
 import { InvalidPayloadException } from '../../exceptions/invalid-payload-excepection';
-import { User } from '../../interfaces/user';
+import { UserRequestDTO } from '../dto/user-request';
+
 import { REQUIRED_FIELDS, validateUserPayload } from './user-creation';
 
 class NoErrorException extends Error {}
@@ -25,7 +26,9 @@ describe('Creating user validation tests', () => {
           [field]: value
         };
 
-        const error = errorWrapper(() => validateUserPayload(user as User));
+        const error = errorWrapper(() =>
+          validateUserPayload(user as UserRequestDTO)
+        );
 
         expect(error).toBeInstanceOf(InvalidPayloadException);
         expect(error.message).toBe(
@@ -39,7 +42,7 @@ describe('Creating user validation tests', () => {
     const INVALID_EMAILS = ['user', '@user.com'];
 
     INVALID_EMAILS.forEach((value) => {
-      const user: User = {
+      const user: UserRequestDTO = {
         name: 'user',
         email: value,
         password: '123',
@@ -54,7 +57,7 @@ describe('Creating user validation tests', () => {
   });
 
   test('should throw InvalidPayloadException when password and confirm_password is invalid', () => {
-    const user: User = {
+    const user: UserRequestDTO = {
       name: 'user',
       email: 'usertest@test.com',
       password: '1231',
@@ -70,7 +73,7 @@ describe('Creating user validation tests', () => {
   });
 
   test('should throw NoErrorException when user payload is is valid', () => {
-    const user: User = {
+    const user: UserRequestDTO = {
       name: 'user',
       email: 'usertest@test.com',
       password: '123',
