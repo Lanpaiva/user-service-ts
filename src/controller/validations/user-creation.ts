@@ -1,6 +1,6 @@
 import * as EmailValidator from 'email-validator';
 import { InvalidPayloadException } from '../../exceptions/invalid-payload-excepection';
-import { User } from '../../interfaces/user';
+import { UserRequestDTO } from '../dto/user-request';
 
 export interface ErrorResponse {
   code: number;
@@ -14,7 +14,7 @@ export const REQUIRED_FIELDS = [
   'confirm_password'
 ];
 
-export const validateUserPayload = (user: User) => {
+export const validateUserPayload = (user: UserRequestDTO) => {
   for (let i = 0; i < REQUIRED_FIELDS.length; i++) {
     if (!user[REQUIRED_FIELDS[i]]?.trim()) {
       throw new InvalidPayloadException(
