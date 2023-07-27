@@ -1,12 +1,13 @@
+import { UserDocument } from '../documents/user';
 import { UserEmailAlreadyExistsException } from '../exceptions/invalid-user-email-already-exists-exception';
-import { UserDocument } from '../interfaces/user';
 import { UserRepository } from '../repository/user-repository';
 
 export class UserService {
   private userRepository = new UserRepository();
 
-  public createUser(user: UserDocument): Promise<UserDocument> {
-    if (this.findByEmail(user.email)) {
+  public async createUser(user: UserDocument): Promise<UserDocument> {
+    const foundUser = await this.findByEmail(user.email);
+    if (foundUser) {
       throw new UserEmailAlreadyExistsException(
         'Invalid email: Already Exists!'
       );

@@ -2,6 +2,7 @@ import bodyParser from 'body-parser';
 import cors from 'cors';
 import express, { Application } from 'express';
 import mongoose from 'mongoose';
+import { MONGO_URI } from './contants/database';
 import { UserController } from './controller/user-controller';
 
 export class App {
@@ -29,19 +30,14 @@ export class App {
     this._server.use('/api/users', userController.router);
   }
 
-  private setMongoConnection() {
+  private async setMongoConnection() {
     mongoose.Promise = global.Promise;
-    mongoose.set('strictQuery', true);
-    const mongoosePromise = mongoose.connect('mongodb://localhost:27017/users');
-
-    mongoosePromise
-
-      .then((server) => {
-        console.log('MongoDB connected with Successfully!');
-        console.log(`server.connection.name: ${server.connection.name}`);
-      })
-      .catch((error) => {
-        console.log('Could not connect into mongoDB', error);
-      });
+    try {
+      const server = await mongoose.connect(MONGO_URI);
+      console.log(`server.connection.name: ${server.connection.name}`);
+    } catch (error) {
+      console.error('could not connect into MongoDB, error:', error);
+      process.exit();
+    }
   }
 }

@@ -26,11 +26,13 @@ export class UserController {
       ...req.body,
       email: req.body?.email?.toLowerCase()
     };
+
     try {
       validateUserPayload(user);
 
       const persitedUser = await this._userService.createUser(toDocument(user));
-      res.location(`api/users/${persitedUser.email}`).sendStatus(201);
+
+      res.location(`api/users/${persitedUser._id?.toString()}`).sendStatus(201);
     } catch (error) {
       console.error(
         `user.name: ${user.name}, user.email: ${user.email}`,
