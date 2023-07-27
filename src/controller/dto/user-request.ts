@@ -1,4 +1,4 @@
-import { UserDocument } from '../../interfaces/user';
+import { UserDocument } from '../../documents/user';
 
 export interface UserRequestDTO {
   name: string;
