@@ -1,6 +1,5 @@
 import { InvalidPayloadException } from '../../exceptions/invalid-payload-excepection';
 import { UserRequestDTO } from '../dto/user-request';
-
 import { REQUIRED_FIELDS, validateUserPayload } from './user-creation';
 
 class NoErrorException extends Error {}
@@ -56,21 +55,25 @@ describe('Creating user validation tests', () => {
     });
   });
 
-  test('should throw InvalidPayloadException when password and confirm_password is invalid', () => {
-    const user: UserRequestDTO = {
-      name: 'user',
-      email: 'usertest@test.com',
-      password: '1231',
-      confirm_password: '1231 '
-    };
+  test(
+    'should throw InvalidPayloadException whenthere is' +
+      'different password and confirm_password',
+    () => {
+      const user: UserRequestDTO = {
+        name: 'user',
+        email: 'usertest@test.com',
+        password: '1231',
+        confirm_password: '1231 '
+      };
 
-    const error = errorWrapper(() => validateUserPayload(user));
+      const error = errorWrapper(() => validateUserPayload(user));
 
-    expect(error).toBeInstanceOf(InvalidPayloadException);
-    expect(error.message).toBe(
-      `message: password and confirm_password must be equals`
-    );
-  });
+      expect(error).toBeInstanceOf(InvalidPayloadException);
+      expect(error.message).toBe(
+        `message: password and confirm_password must be equals`
+      );
+    }
+  );
 
   test('should throw NoErrorException when user payload is is valid', () => {
     const user: UserRequestDTO = {

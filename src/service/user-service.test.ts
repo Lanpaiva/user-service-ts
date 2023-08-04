@@ -13,7 +13,7 @@ const CREATE_USER_MOCK = jest.fn(() => USER_MOCK);
 jest.mock('../repository/user-repository', () => ({
   UserRepository: jest.fn().mockImplementation(() => ({
     findByEmail: (email: string) =>
-      email == 'return_mock@node.com' ? USER_MOCK : undefined,
+      email === 'return_mock@node.com' ? USER_MOCK : undefined,
     create: CREATE_USER_MOCK
   }))
 }));

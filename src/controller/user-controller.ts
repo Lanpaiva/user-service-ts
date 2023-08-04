@@ -7,7 +7,7 @@ import { validateUserPayload } from './validations/user-creation';
 
 export class UserController {
   private _router = Router();
-  private _userService = new UserService();
+  private userService = new UserService();
 
   public get router() {
     return this._router;
@@ -30,7 +30,7 @@ export class UserController {
     try {
       validateUserPayload(user);
 
-      const persitedUser = await this._userService.createUser(toDocument(user));
+      const persitedUser = await this.userService.createUser(toDocument(user));
 
       res.location(`api/users/${persitedUser._id?.toString()}`).sendStatus(201);
     } catch (error) {
