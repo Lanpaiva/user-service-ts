@@ -34,7 +34,9 @@ export class App {
     mongoose.Promise = global.Promise;
     try {
       const server = await mongoose.connect(MONGO_URI);
-      console.log(`server.connection.name: ${server.connection.name}`);
+      console.log(
+        `[MongoDB Connection] server.connection.name: ${server.connection.name}`
+      );
     } catch (error) {
       console.error('could not connect into MongoDB, error:', error);
       process.exit();

@@ -2,17 +2,6 @@ import { UserDocument } from '../documents/user';
 import { UserEmailAlreadyExistsException } from '../exceptions/invalid-user-email-already-exists-exception';
 import { UserService } from './user-service';
 
-class NoErrorException extends Error {}
-
-const errorWrapper = async (callback: () => Promise<void>): Promise<Error> => {
-  try {
-    await callback();
-    throw new NoErrorException();
-  } catch (error) {
-    return error;
-  }
-};
-
 const USER_MOCK = {
   name: 'user',
   email: 'return_mock@node.com',
